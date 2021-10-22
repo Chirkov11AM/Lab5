@@ -27,12 +27,11 @@
 . f(PLL general clock output) = f(VCO clock) / PLLP
 . f(USB OTG FS, SDIO) = f(VCO clock) / PLLQ
 
-В нашем случае подходит первый способ.
-При этом PLLN принимает значения: 50 ≤ PLLN ≤ 432, а PLLM: 2 ≤ PLLM ≤ 63.
+PLLN принимает значения: 50 ≤ PLLN ≤ 432, а PLLM: 2 ≤ PLLM ≤ 63.
 
-* Для получения из частоты 8 МГц в 30 МГц необходимо умножить на 60 и разделить на 16.
+* Для получения из частоты 8 МГц в 30 МГц используется формула f = f(PLL clock input) × (PLLN / PLLM) /PLLP.
 
-(8*60)/16=30 МГц.
+16 х (60/16) / 2 = 30 МГц.
 
 Включаем нужный источник и дожидаемся его стабилизации.
 
@@ -52,7 +51,7 @@
 #include "rccregisters.hpp"
 #include "gpioaregisters.hpp"
 #include "gpiocregisters.hpp"
-std::uint32_t SystemCoreClock = 8'000'000U;
+std::uint32_t SystemCoreClock = 16'000'000U;
 extern "C"
 {
 int __low_level_init(void)
